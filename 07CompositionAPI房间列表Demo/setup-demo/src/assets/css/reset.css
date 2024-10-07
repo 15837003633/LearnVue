@@ -1,0 +1,4 @@
+body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,dl,dt,dd,form,fieldset,legend,img,button,input,textarea,select,a,span,em,strong,b,i,u,s,small,big,sub,sup,pre,code,address,cite,dfn,kbd,var,samp,kbd,q,blockquote,del,ins,table,th,td,tr,caption,thead,tfoot,tbody,colgroup,col,hr,fieldset,legend,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video {
+    margin: 0;
+    padding: 0;
+}
