@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <template id = 'my-app'>
+        <h1>我的书单</h1>
+        <!-- // 循环遍历books数组，表格显示书籍信息，带边框 -->
+         <div  v-if="books.length > 0">
+            <table class="bordered-table">
+                <thead>
+                    <tr >
+                        <th>书名</th>
+                        <th>出版时间</th>
+                        <th>价格</th>
+                        <th>购买数量</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 动态是否添加类名,绑定一个对象 key是类名，value是bool类型决定是否添加 -->
+                    <tr v-bind:class="{active: selectedIndex === index}" v-for="(book, index) in books" :key="index" @click="bookItemClick(index)">
+                        <td>{{ book.title || '未提供书名' }}</td>
+                        <td>{{ book.time || '未提供出版时间' }}</td>
+                        <td>{{ book.price || '未提供价格' }}</td>
+                        <td>
+                            <button :disabled="book.count == 0" @click="decrement(index)">-</button>
+                            <span>{{ book.count }}</span>
+                            <button @click="increment(index)">+</button>
+                        </td>
+                        <td>
+                            <button @click="books.splice(index,1)">删除</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p2>总价格：{{ totalPrice }}</p2>
+         </div>
+        <p2 v-else>还没有书籍</p2>
+    </template>
+
+    <style>
+        .bordered-table {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        .bordered-table th, .bordered-table td {
+            border: 1px solid black;
+            padding: 0 8px; 
+        }
+        .disabled{
+            background-color: #ccc;
+            color: #fff;
+            cursor: not-allowed;
+        }
+        .active{
+            background-color: #f5f5f5;
+        }
+    </style>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script type="text/javascript">
+        var app = Vue.createApp(
+            {
+                template:'#my-app',
+                data: function(){
+                    return{
+                        books: [
+                            {title:"Vue.js权威指南",time:"2021-05-01",price:"99",count:1},
+                            {title:"深入理解Vue.js",time:"2021-04-01",price:"88",count:1},
+                            {title:"Vue.js源码全方位剖析",time:"2021-03-01",price:"77",count:1},
+                            {title:"Vue.js开发实战",time:"2021-02-01",price:"66",count:1},
+                        ],
+                        selectedIndex: -1
+                    }
+                },
+                methods:{
+                    increment(index){
+                        this.books[index].count++;
+                    },
+                    decrement(index){
+                        if(this.books[index].count == 0 ){
+                            return;
+                        }
+                        this.books[index].count--;
+                    },
+                    bookItemClick(index){
+                        this.selectedIndex = index;
+                    }
+                },
+                computed:{
+                    totalPrice(){
+                        var total = 0;
+                    for(var i=0;i<this.books.length;i++){
+                        total += this.books[i].price * this.books[i].count;
+                    }
+                    return total.toFixed(2);
+                    }
+                }
+            }
+        )
+        app.mount('#app')
+    </script>
+</body>
+</html>

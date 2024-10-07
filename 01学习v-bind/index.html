@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <template id = 'my-app'>
+        <div >{{message}}</div>
+        <div>
+            <img v-bind:src="imgurl" alt="">
+
+        </div>
+        <button v-on:click="changeMessage">按钮1</button>
+
+    </template>
+
+    <script src="https://unpkg.com/vue@3.5.10/dist/vue.global.js"></script>
+
+    <script type="text/javascript">
+        var app = Vue.createApp(
+            {
+                template:'#my-app',
+                data: function(){
+                    return{
+                        message:'hello world',
+                        imgurl:'https://vuejs.org/images/logo.png'
+                    }
+                },
+                methods:{
+                    changeMessage(){
+                        this.message = '你好，世界啊'
+                        this.imgurl = 'https://static.zhihu.com/heifetz/assets/liukanshan-peek.a71ecf3e.png'
+                    }
+                }
+            }
+        )
+        app.mount('#app')
+    </script>
+</body>
+</html>

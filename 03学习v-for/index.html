@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <template id = 'my-app'>
+        <!-- 遍历数组 -->
+        <ul>
+            <li v-for="item in products" v-bind:key="item">{{item}}</li>
+        </ul>
+
+        <!-- 遍历对象 -->
+        <ul>
+            <li v-for="(value,key,index) in userInfo" bind:key="index">{{key}}:{{value}}</li>
+        </ul>
+
+        <!-- 计算属性 -->
+         <p>年龄是：{{age}}</p>
+    </template>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script type="text/javascript">
+        var app = Vue.createApp(
+            {
+                template:'#my-app',
+                data: function(){
+                    return{
+                        'message':'hello world',
+                        products:['apple','banana','orange'],
+                        userInfo:{
+                            name:'scott',
+                            age:25,
+                            hobby:'reading'
+                        }
+                    }
+                },
+                // 计算属性
+                computed:{
+                    age(){
+                        return this.userInfo.age + "岁";
+                    }
+                },
+                // 监听属性
+                watch:{
+                    message(newVal,oldVal){
+                        console.log('message change:',newVal,oldVal)
+                    }
+                }
+            }
+        )
+        app.mount('#app')
+    </script>
+</body>
+</html>
