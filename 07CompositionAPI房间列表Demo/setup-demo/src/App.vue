@@ -1,5 +1,9 @@
 <template>
   <div class="app">
+    <my-cpn></my-cpn>
+    <br>
+    <my-cpn01 name="张三" :age="25"></my-cpn01>
+
     <room-section :data="highScoreData"></room-section>
     <br>
     <hr>
@@ -10,6 +14,9 @@
 
 <script setup>
   import  RoomSection from "./components/RoomSection.vue";
+  import MyCpn from "./components/MyCpn.vue";
+  import MyCpn01 from "./components/MyCpn01.vue";
+
   // 直接导入数据文件
   // import highScoreData from "./data/high_score.json";
 
