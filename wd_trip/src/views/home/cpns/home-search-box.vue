@@ -42,18 +42,18 @@
         </template>
     </div>
     <!-- 搜索 -->
-    <div class="search">
+    <div class="search" @click="searchClick">
         开始搜索
     </div>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
 import useCityStore from '@/stores/city';
 import { storeToRefs } from 'pinia';
 import useHomeStore from '@/stores/home';
 import { computed, ref } from 'vue';
 import {formatDayMouth,diffDays} from '@/utils/format_day';
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
@@ -86,6 +86,20 @@ const onConfirm = (date) => {
 
 const homeStore = useHomeStore();
 const {hotSuggests} = storeToRefs(homeStore);
+
+const searchClick = () => {
+    console.log('searchClick')
+
+
+    router.push({
+        path: '/search',
+        query: {
+            startDate:formatDayMouth(startDate.value),
+            endDate:formatDayMouth(endDate.value),
+            city:currentCity.value.cityName
+        }
+    });
+}
 
 </script>
 
@@ -171,8 +185,9 @@ const {hotSuggests} = storeToRefs(homeStore);
         height: 40px;
         text-align: center;
         line-height: 40px;
-        background-color: #ff9854;
         color: #fff;
         border-radius: 20px;
+        // background是一个缩写css属性，表示background
+        background:  linear-gradient(90deg, #fa8c1d 0%, #fcaf3f 100%);
     }
 </style>

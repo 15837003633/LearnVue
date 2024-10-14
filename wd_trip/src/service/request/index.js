@@ -1,5 +1,7 @@
 import axios from "axios"
 import {BASE_URL , TIME_OUT} from './config'
+import useMainStore from "@/stores/main"
+import { storeToRefs } from "pinia"
 
 class WDRequest{
     constructor(baseURL){
@@ -7,6 +9,22 @@ class WDRequest{
         this.axios_instance = axios.create({
             baseURL: this.baseURL,
             timeout: 5000
+        })
+
+        const mainStore = useMainStore()
+        const {isLoading} = storeToRefs(mainStore)
+        this.axios_instance.interceptors.request.use(config => {
+            isLoading.value = true
+            return config
+        }, error => {
+            return Promise.reject(error)
+        })
+        this.axios_instance.interceptors.response.use(response => {
+            isLoading.value = false
+            return response
+        }, error => {
+            isLoading.value = false
+            return Promise.reject(error)
         })
     }
 
@@ -19,19 +37,17 @@ class WDRequest{
             })
     }
 
-    get(url, params){
+    get(config){
         return this.request({
-            url,
-            method: "get",
-            params
+            ...config,
+             method: "get"
         })
     }
 
-    post(url, data){
+    post(config){
         return this.request({
-            url,
-            method: "post",
-            data
+            ...config,
+             method: "post"
         })
     }
 }

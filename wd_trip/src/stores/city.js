@@ -8,7 +8,8 @@ export const useCityStore = defineStore('city',{
     }),
     actions:{
         async getAllCityAction(){
-            this.allCity = await getAllCities()
+            const result = await getAllCities()
+            this.allCity = result.data
             console.log(this.allCity)
         }
     }
