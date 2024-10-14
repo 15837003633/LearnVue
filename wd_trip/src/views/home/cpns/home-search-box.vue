@@ -51,8 +51,9 @@
 import useCityStore from '@/stores/city';
 import { storeToRefs } from 'pinia';
 import useHomeStore from '@/stores/home';
+import userMainStore from '@/stores/main';
 import { computed, ref } from 'vue';
-import {formatDayMouth,diffDays} from '@/utils/format_day';
+import {formatDayMouth,diffDays} from '@/utils/format_date';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -66,14 +67,11 @@ const cityClick = () => {
     router.push('/city');
 }
 
-const nowDate = new Date()
-const newDate = new Date()
-newDate.setDate(nowDate.getDate() + 1)
+const mainStore = userMainStore();
+const { startDate, endDate } = storeToRefs(mainStore);
 
-const startDate = ref(nowDate);
-const endDate = ref(newDate);
 const totalDays = computed(() => {
-    return diffDays(endDate.value, startDate.value)
+    return diffDays(startDate.value, endDate.value)
 })
 
 const show_calendar = ref(false);

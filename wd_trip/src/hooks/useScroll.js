@@ -3,19 +3,26 @@ import { onMounted, onUnmounted, ref } from "vue"
 const useScroll = ()=>{
 
     const isReachBottom = ref(false)
+    // 滚动的距离
+    const scrollTop = ref(0)
+    // 页面的总高度
+    const scrollHeight = ref(document.documentElement.scrollHeight)
+
+    // 页面的可视高度
+    const clientHeight = ref(document.documentElement.clientHeight)
 
     const handlScrollEvent = () => {
-        // 滚动的距离
-        const scrollTop = document.documentElement.scrollTop
-        // 页面的总高度
-        const scrollHeight = document.documentElement.scrollHeight
 
-        // 页面的可视高度
-        const clientHeight = document.documentElement.clientHeight
+        scrollTop.value = document.documentElement.scrollTop
+
+        scrollHeight.value = document.documentElement.scrollHeight
+
+
+        clientHeight.value = document.documentElement.clientHeight
 
         // console.log("滚动的距离:",scrollTop, scrollHeight, clientHeight)
 
-        if (scrollTop >= (scrollHeight - clientHeight )){
+        if (scrollTop.value >= (scrollHeight.value - clientHeight.value)){
             console.log("到达底部")
             isReachBottom.value = true
         }else{
@@ -32,7 +39,10 @@ const useScroll = ()=>{
         window.removeEventListener('scroll', handlScrollEvent)
     })
     return {
-        isReachBottom
+        isReachBottom,
+        scrollTop,
+        scrollHeight,
+        clientHeight
     }
 }
 

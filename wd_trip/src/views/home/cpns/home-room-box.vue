@@ -3,8 +3,8 @@
     <h1>热门精选</h1>
     <div class="room-list">
       <template v-for="item in roomList">
-          <home-room-item-v3 v-if="item.discoveryContentType == 3" :item-data="item.data" />
-          <home-room-item-v9 v-else-if="item.discoveryContentType == 9" :item-data="item.data" />
+          <home-room-item-v3 v-if="item.discoveryContentType == 3" :item-data="item.data" @click="onRoomClick(item.data)"/>
+          <home-room-item-v9 v-else-if="item.discoveryContentType == 9" :item-data="item.data" @click="onRoomClick(item.data)"/>
       </template>
     </div>
   </div>
@@ -15,14 +15,22 @@
     import HomeRoomItemV3 from '@/components/room-item-v3/room-item-v3.vue';
     import HomeRoomItemV9 from '@/components/room-item-v9/room-item-v9.vue';
     import { storeToRefs } from "pinia";
+    import { useRouter } from "vue-router";
     const homeStore = useHomeStore();
     const { roomList } = storeToRefs(homeStore);
+
+    const router = useRouter();
+    const onRoomClick = (itemData) => {
+      router.push({
+        path: '/detail/' + itemData.houseId,
+      })
+    }
 </script>
 
 <style lang="less" scoped>
 
  .room-box {
-  margin: 0 5px;
+    margin: 0 5px;
  }
  .room-list {
     display: flex;

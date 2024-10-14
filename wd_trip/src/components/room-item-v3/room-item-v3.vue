@@ -41,6 +41,7 @@ import { computed } from 'vue';
 <style lang="less" scoped>
     .home-room-item-v3{
          width: 50%;
+         
          .inner {
             padding: 5px;
          }

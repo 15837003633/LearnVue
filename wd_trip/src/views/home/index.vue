@@ -4,6 +4,9 @@
         <home-search-box></home-search-box>
         <home-catagory-box></home-catagory-box>
         <home-room-box></home-room-box>
+
+        <search-bar v-if="isShowSearchBox"></search-bar>
+
     </div>
 </template>
 
@@ -12,22 +15,28 @@
     import HomeNavbar from './cpns/home-navbar.vue';
     import HomeSearchBox from './cpns/home-search-box.vue';
     import HomeCatagoryBox from './cpns/home-catagory-box.vue';
+    import SearchBar from '@/components/search-bar/search-bar.vue';
     import HomeRoomBox from './cpns/home-room-box.vue';
     import useHomeStore from '@/stores/home';
     import useScroll from '@/hooks/useScroll';
-    import { watch } from 'vue';
+    import { computed, watch } from 'vue';
 
     const homeStore = useHomeStore()
     homeStore.getHotSuggestsAction()
     homeStore.getCatagoriesAction()
     homeStore.getRoomListAction()
 
-    const {isReachBottom} = useScroll()
+    const {isReachBottom,scrollTop} = useScroll()
     watch(isReachBottom, (val) => {
         if (val) {
             homeStore.getRoomListAction()
         } 
     })
+
+    const isShowSearchBox = computed(() => {
+        return scrollTop.value > 500
+    })
+
 </script>
 
 <style lang="less" scoped>

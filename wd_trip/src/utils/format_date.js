@@ -5,5 +5,5 @@ export function formatDayMouth(date,fmt="MM月DD日"){
 }
 
 export function diffDays(date1, date2){
-    return dayjs(date1).diff(date2, 'day');
+    return dayjs(date2).diff(date1, 'day');
 }

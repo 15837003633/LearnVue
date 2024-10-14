@@ -8,7 +8,7 @@
 
 <script setup>
     import useMainStore from '@/stores/main'
-import { storeToRefs } from 'pinia';
+    import { storeToRefs } from 'pinia';
     const mainStore = useMainStore()
     const { isLoading } = storeToRefs(mainStore)
 </script>

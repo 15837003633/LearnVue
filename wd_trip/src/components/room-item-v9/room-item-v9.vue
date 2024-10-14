@@ -2,7 +2,9 @@
   <div class="home-room-item-v9">
     <div class="inner">
       <div class="item">
-        <img class="cover" :src="image_url" alt="">
+        <div class="cover">
+          <img :src="image_url" alt="">
+        </div>
         <div class="info">
           <span class="summary"> {{ itemData.summaryText }}</span>
           <span class="house-name"> {{ itemData.houseName }}</span>
@@ -39,11 +41,13 @@ const rate = computed(()=>Number(props.itemData?.commentScore))
 
       .item {
         position: relative;
-        border-radius: 5px;
-        overflow: hidden;
-
+        
         .cover {
-          width: 100%;
+          border-radius: 5px;
+          overflow: hidden;
+          img {
+            width: 100%;
+          }
         }
 
         .info {
