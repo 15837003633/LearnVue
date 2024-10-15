@@ -1,24 +1,34 @@
 import { onMounted, onUnmounted, ref } from "vue"
 
-const useScroll = ()=>{
+const useScroll = (elRef)=>{
+
+    let el = window
 
     const isReachBottom = ref(false)
     // 滚动的距离
     const scrollTop = ref(0)
     // 页面的总高度
-    const scrollHeight = ref(document.documentElement.scrollHeight)
+    const scrollHeight = ref(0)
 
     // 页面的可视高度
-    const clientHeight = ref(document.documentElement.clientHeight)
+    const clientHeight = ref(0)
 
     const handlScrollEvent = () => {
 
-        scrollTop.value = document.documentElement.scrollTop
+        if (el === window){
+            scrollTop.value = document.documentElement.scrollTop
 
-        scrollHeight.value = document.documentElement.scrollHeight
+            scrollHeight.value = document.documentElement.scrollHeight
+    
+            clientHeight.value = document.documentElement.clientHeight
+        }else{
+            scrollTop.value = el.scrollTop
 
+            scrollHeight.value = el.scrollHeight
 
-        clientHeight.value = document.documentElement.clientHeight
+            clientHeight.value = el.clientHeight
+        }
+
 
         // console.log("滚动的距离:",scrollTop, scrollHeight, clientHeight)
 
@@ -32,11 +42,14 @@ const useScroll = ()=>{
     }
 
     onMounted(()=>{
-        window.addEventListener('scroll', handlScrollEvent)
+        if (elRef){
+            el = elRef.value
+        }
+        el.addEventListener('scroll', handlScrollEvent)
     })
 
     onUnmounted(()=>{
-        window.removeEventListener('scroll', handlScrollEvent)
+        el.removeEventListener('scroll', handlScrollEvent)
     })
     return {
         isReachBottom,
