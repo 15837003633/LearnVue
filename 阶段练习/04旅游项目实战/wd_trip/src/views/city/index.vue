@@ -16,9 +16,14 @@
         </template>
       </van-tabs>
     </div>
+
+    <!-- 试试加一个动画效果 -->
     <template v-for="(group,key,index) in allCity">
-      <city-group v-show="key === selectedTab" :cityGroup="group"></city-group>
+      <transition name="wdscale" mode="out-in" appear>
+        <city-group v-show="key === selectedTab" :cityGroup="group"></city-group>
+      </transition>
     </template>
+
   </div>
 </template>
 
@@ -59,4 +64,32 @@ cityStore.getAllCityAction()
       margin-top: 10px;
     }
   }
+
+
+
+
+  .wdscale-enter-active{
+    animation: wdscale-anima 0.5s;
+  }
+
+  .wdscale-leave-active {
+    animation: wdscale-anima 0.5s reverse;
+  }
+
+  @keyframes wdscale-anima {
+    0% {
+      // transform: scale(0);
+      opacity: 0.1;
+    }
+    50% {
+      // transform: scale(1.1);
+      opacity: 0.5;
+    }
+    100% {
+      // transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+
 </style>

@@ -4,8 +4,9 @@
         <home-search-box></home-search-box>
         <home-catagory-box></home-catagory-box>
         <home-room-box></home-room-box>
-
-        <search-bar v-if="isShowSearchBox"></search-bar>
+        <transition name="fade">
+            <search-bar v-if="isShowSearchBox"></search-bar>
+        </transition>
 
     </div>
 </template>
@@ -48,5 +49,18 @@ export default {
 <style lang="less" scoped>
     .home {
         padding-bottom: 50px;
+    }
+
+    // search-bar transition动画
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 0.5s ease;
+    }
+
+   .fade-enter-from, .fade-leave-to {
+        opacity: 0;
+    }
+
+    .fade-enter-to, .fade-leave-from {
+        opacity: 1;
     }
 </style>

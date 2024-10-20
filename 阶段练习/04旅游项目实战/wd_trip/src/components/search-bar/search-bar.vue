@@ -1,24 +1,25 @@
 <template>
-  <div class="search-bar">
-    <div class="content">
-        <div class="left">
-            <div class="date">
-                <span>住</span>
-                <span>{{ startDateStr }}</span>
+        <div class="search-bar">
+            <div class="content">
+                <div class="left">
+                    <div class="date">
+                        <span>住</span>
+                        <span>{{ startDateStr }}</span>
+                    </div>
+                    <div class="date">
+                        <span>离</span>
+                        <span>{{ endDateStr }}</span>
+                    </div>
+                </div>
+                <div class="middle">
+                    <div class="input">关键字/位置/民宿</div>
+                </div>
+                <div class="right">
+                    <van-icon name="search" />
+                </div>
             </div>
-            <div class="date">
-                <span>离</span>
-                <span>{{ endDateStr }}</span>
-            </div>
         </div>
-        <div class="middle">
-            <div class="input">关键字/位置/民宿</div>
-        </div>
-        <div class="right">
-            <van-icon name="search" />
-        </div>
-    </div>
-  </div>
+
 </template>
 
 <script setup>
@@ -75,4 +76,5 @@ const endDateStr = computed(() => {
         }
 
     }
+
 </style>
